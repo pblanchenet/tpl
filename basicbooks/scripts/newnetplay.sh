@@ -9,9 +9,10 @@ lplays=$*
 
 cd ..
 
-createLocal()
+createNet()
 {
   play=$1
+  echo "Creating new net play ${play} ..."
   ansible-playbook newnetplay.yml -e "tname=${play}"
 }
 
@@ -19,7 +20,7 @@ main()
 {
   for lplay in ${lplays}
   do
-    createLocal ${lplay}
+    createNet ${lplay}
   done
 }
 

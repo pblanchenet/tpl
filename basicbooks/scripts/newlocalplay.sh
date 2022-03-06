@@ -12,6 +12,7 @@ cd ..
 createLocal()
 {
   play=$1
+  echo "Creating new loca play ${play} ..."
   ansible-playbook newlocalplay.yml -e "tname=${play}"
 }
 
