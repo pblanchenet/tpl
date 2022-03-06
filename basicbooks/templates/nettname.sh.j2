@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+{{ dieseLine }}
+# Author: {{ author }}
+# DATE: {{ ansible_date_time.date }}
+# WHAT: {{ tname }}
+{{ dieseLine }}
+
+
+
+main()
+{
+  cd ..
+  ansible-playbook ${DEBUG} -i hosts.yml {{ tname }}.yml
+}
+
+main

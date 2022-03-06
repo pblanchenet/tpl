@@ -1,0 +1,53 @@
+---
+
+- hosts: localhost
+  connection: local 
+  gather_facts: true
+  
+  vars_files:
+     - defaults/internal.yml
+
+  tasks:
+
+    - name: Checking this play
+      stat:
+        path: "{{ tname }}.yml"
+      register: rtn
+
+    - block:
+
+        - name: Create the net play
+          template:
+            src: "templates/newnetplay.yml.j2"
+            dest: "{{ tname }}.yml"
+
+        - name: Create the net play
+          template:
+            src: "templates/tname_vars.yml.j2"
+            dest: "defaults/{{ tname }}.yml"
+
+        - name: Create the associate role
+          shell: "ansible-galaxy init {{ tname }}-role --init-path roles"
+
+        - name: Chain main and role
+          template:
+            src: "templates/main.yml.j2"
+            dest: "roles/{{ tname }}-role/tasks/main.yml"
+
+        - name: Create the feature file
+          template:
+            src: "templates/tname.yml.j2"
+            dest: "roles/{{ tname }}-role/tasks/{{ tname }}.yml"
+
+        - name: Create the associated shell file 
+          template:
+            src: "templates/nettname.sh.j2"
+            dest: "scripts/{{ tname }}.sh"
+      when: rtn.stat.exists == false
+
+    - debug:
+        msg: 
+          - "{{ dieseLine }}"
+          - "This play already exists !! "
+          - "{{ dieseLine }}"
+      when: rtn.stat.exists == true 

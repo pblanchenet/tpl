@@ -1,0 +1,25 @@
+---
+{{ dieseLine }}"
+# Author: {{ author }}
+# DATE: {{ ansible_date_time.date }}
+# WHAT: {{ tname }}
+{{ dieseLine }}"
+
+- hosts: all
+  gather_facts: true
+  vars_files:
+    - "defaults/internal.yml"
+    - "defaults/{{ tname }}.yml"
+
+  tasks:
+
+    - name: Make sure author is defined
+      assert:
+        that:
+          - author is defined
+        fail_msg: "Make sur author is defined " 
+
+  roles:
+    - "{{ tname }}-role" 
+      
+

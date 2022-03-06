@@ -1,0 +1,10 @@
+---
+{{ dieseLine }}
+# Author: {{ author }}
+# DATE: {{ ansible_date_time.date }}
+# WHAT: {{ tname }}
+{{ dieseLine }}
+
+- name: Including the feature file 
+  include_tasks: "{{ tname }}.yml"
+
