@@ -5,7 +5,7 @@
 # DATE: March 2022
 #----------------------------------------------
 
-lplays=$*
+nplays=$*
 
 cd ..
 
@@ -18,9 +18,9 @@ createNet()
 
 main()
 {
-  for lplay in ${lplays}
+  for nplay in ${nplays}
   do
-    createNet ${lplay}
+    createNet ${nplay}
   done
 }
 
